@@ -18,15 +18,15 @@ DIM='\033[2m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
-echo ""
-echo -e "${BLUE}${BOLD}  ██████╗ ██╗      █████╗  ██████╗██╗  ██╗██╗    ██╗ █████╗ ██╗     ██╗${RESET}"
-echo -e "${BLUE}  ██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝██║    ██║██╔══██╗██║     ██║${RESET}"
-echo -e "${BLUE}  ██████╔╝██║     ███████║██║     █████╔╝ ██║ █╗ ██║███████║██║     ██║${RESET}"
-echo -e "${BLUE}  ██╔══██╗██║     ██╔══██║██║     ██╔═██╗ ██║███╗██║██╔══██║██║     ██║${RESET}"
-echo -e "${BLUE}  ██████╔╝███████╗██║  ██║╚██████╗██║  ██╗╚███╔███╔╝██║  ██║███████╗███████╗${RESET}"
-echo ""
-echo -e "${DIM}  Runtime Security — Installer${RESET}"
-echo ""
+printf "\n"
+printf "${BLUE}${BOLD}  ██████╗ ██╗      █████╗  ██████╗██╗  ██╗██╗    ██╗ █████╗ ██╗     ██╗${RESET}\n"
+printf "${BLUE}  ██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝██║    ██║██╔══██╗██║     ██║${RESET}\n"
+printf "${BLUE}  ██████╔╝██║     ███████║██║     █████╔╝ ██║ █╗ ██║███████║██║     ██║${RESET}\n"
+printf "${BLUE}  ██╔══██╗██║     ██╔══██║██║     ██╔═██╗ ██║███╗██║██╔══██║██║     ██║${RESET}\n"
+printf "${BLUE}  ██████╔╝███████╗██║  ██║╚██████╗██║  ██╗╚███╔███╔╝██║  ██║███████╗███████╗${RESET}\n"
+printf "\n"
+printf "${DIM}  Runtime Security — Installer${RESET}\n"
+printf "\n"
 
 # ─── Detect platform ─────────────────────────────────────
 
@@ -60,7 +60,7 @@ TARGET="${ARCH}-${PLATFORM}"
 
 ASSET_NAME="blackwall-${TARGET}"
 
-echo -e "  ${DIM}Platform: ${TARGET}${RESET}"
+printf "  ${DIM}Platform: ${TARGET}${RESET}\n"
 
 # ─── Download ─────────────────────────────────────────────
 
@@ -69,8 +69,8 @@ DOWNLOAD_URL="https://github.com/${REPO}/releases/latest/download/${ASSET_NAME}"
 TMPFILE=$(mktemp)
 trap 'rm -f "$TMPFILE"' EXIT
 
-echo -e "  ${DIM}Downloading from: ${DOWNLOAD_URL}${RESET}"
-echo ""
+printf "  ${DIM}Downloading from: ${DOWNLOAD_URL}${RESET}\n"
+printf "\n"
 
 AUTH_HEADER=""
 if [ -n "${GITHUB_TOKEN:-}" ]; then
@@ -110,29 +110,29 @@ fi
 
 chmod +x "$TMPFILE"
 
-echo -e "  ${DIM}Installing to ${INSTALL_DIR}...${RESET}"
+printf "  ${DIM}Installing to ${INSTALL_DIR}...${RESET}\n"
 
 if [ -w "$INSTALL_DIR" ]; then
     mv "$TMPFILE" "${INSTALL_DIR}/${BINARY_NAME}"
 else
-    echo -e "  ${DIM}Requires sudo to write to ${INSTALL_DIR}${RESET}"
+    printf "  ${DIM}Requires sudo to write to ${INSTALL_DIR}${RESET}\n"
     sudo mv "$TMPFILE" "${INSTALL_DIR}/${BINARY_NAME}"
 fi
 
 # ─── Verify ──────────────────────────────────────────────
 
 if command -v "$BINARY_NAME" &>/dev/null; then
-    echo ""
-    echo -e "${GREEN}${BOLD}  ✓ Blackwall installed successfully${RESET}"
-    echo ""
-    echo -e "  ${DIM}Binary:${RESET}  ${INSTALL_DIR}/${BINARY_NAME}"
-    echo -e "  ${DIM}Version:${RESET} $(${BINARY_NAME} --version 2>/dev/null || echo 'unknown')"
-    echo ""
-    echo -e "  Run ${BOLD}${BINARY_NAME}${RESET} to start."
-    echo ""
+    printf "\n"
+    printf "${GREEN}${BOLD}  ✓ Blackwall installed successfully${RESET}\n"
+    printf "\n"
+    printf "  ${DIM}Binary:${RESET}  ${INSTALL_DIR}/${BINARY_NAME}\n"
+    printf "  ${DIM}Version:${RESET} $(${BINARY_NAME} --version 2>/dev/null || echo 'unknown')\n"
+    printf "\n"
+    printf "  Run ${BOLD}${BINARY_NAME}${RESET} to start.\n"
+    printf "\n"
 else
-    echo ""
-    echo -e "${RED}✗ Installation could not be verified.${RESET}"
-    echo -e "  ${DIM}Ensure ${INSTALL_DIR} is in your PATH.${RESET}"
+    printf "\n"
+    printf "${RED}✗ Installation could not be verified.${RESET}\n"
+    printf "  ${DIM}Ensure ${INSTALL_DIR} is in your PATH.${RESET}\n"
     exit 1
 fi
