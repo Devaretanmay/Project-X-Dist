@@ -1,0 +1,7 @@
+Blackwall manual publish (SSH path)
+Version: v1.2.1
+Source commit: b4f6db2
+Artifacts:
+- blackwall-aarch64-apple-darwin
+- blackwall-x86_64-apple-darwin
+- blackwall-x86_64-unknown-linux-gnu
